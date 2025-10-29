@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-simple-api",
+  "version": "1.0.0",
+  "description": "node.js basit api tasarımı",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --env-file=.env server.js"
+  },
+  "author": "Emir Yılmaz",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
