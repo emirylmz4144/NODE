@@ -1,4 +1,3 @@
-
 let products = require('./data.js'); 
 // server.js kullanırız çünkü node.js'le api yazarsak yönetim daha da zorlaşır 
 const express = require('express');
