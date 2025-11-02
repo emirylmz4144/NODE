@@ -1,3 +1,4 @@
+```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(100) UNIQUE NOT NULL,
@@ -9,3 +10,5 @@ CREATE TABLE tasks (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   text TEXT NOT NULL
 );
+
+```
