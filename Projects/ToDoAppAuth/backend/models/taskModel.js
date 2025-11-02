@@ -79,6 +79,30 @@ class TaskModel {
             updated_at:TaskModel.formatDate(row.updated_at)
         }
     }
+
+    static async updateTask(id,text,completed){
+        const result=await client.query
+        (
+            `
+                update tasks
+                    set text=$1 , completed=$2
+                where id = $3
+                returning *
+
+            `,
+            [text,completed,id]
+        )
+        const row =result.rows[0]
+        if(!row)return null
+
+        return {
+            ...row,
+            created_at:TaskModel.formatDate(row.created_at),
+            updated_at:TaskModel.formatDate(row.updated_at)
+        }
+            
+        
+    }
     static formatDate(date) {
         /* 
          padStart() metodu gelen tek karakterli tarihleri belirtilen kadar

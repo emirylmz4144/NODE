@@ -1,4 +1,3 @@
-import { raw } from "express"
 import TaskModel from "../models/taskModel.js"
 
 const getAllTasks = async (req, res) => {
@@ -16,30 +15,50 @@ const getTaskById = async (req, res) => {
         const id = req.params.id
         const task = await TaskModel.getTaskById(id)
 
-        if(!task){
-            res.status(404).json({message:"Aradığınız görev bulunamadı veya silindi"})
+        if (!task) {
+            res.status(404).json({ message: "Aradığınız görev bulunamadı veya silindi" })
             return
         }
         res.status(200).json(task)
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({message:"Sunucudan hatası kaynaklı görev görünemiyor"})
+        res.status(500).json({ message: "Sunucudan hatası kaynaklı görev görünemiyor" })
     }
 }
 
-const createTask= async (req,res)=>{
-    try{
-        const user_id=req.body.user_id
-        const text=req.body.text
-        const completed=req.body.completed
+const createTask = async (req, res) => {
+    try {
+        const user_id = req.body.user_id
+        const text = req.body.text
+        const completed = req.body.completed
 
-        const newTask=await TaskModel.createTask(user_id,text,completed)
+        const newTask = await TaskModel.createTask(user_id, text, completed)
         res.status(201).json(newTask)
-    }catch(error){
-        res.status(500).json({message:"Sunucu hatası kaynaklı görev oluşturulamadı"})
+    } catch (error) {
+        res.status(500).json({ message: "Sunucu hatası kaynaklı görev oluşturulamadı" })
         console.log(error)
     }
 }
 
-export { getAllTasks,getTaskById,createTask }
+const updateTask = async (req, res) => {
+
+    try {
+        const taskId = req.params.id
+        const taskText = req.params.text
+        const taskComplated = req.params.completed
+
+        const updateTask=await TaskModel.updateTask(taskId,taskText,taskComplated)
+        if(!updateTask){
+            res.status(404).json({message:"Güncellenmek istenen görev daha önce silinmiş yada bulunamadı"})
+        }
+
+        res.status(200).json(updateTask)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Sunucu hatası kaynaklı dolayı görev güncellenemedi " })
+    }
+
+}
+
+export { getAllTasks, getTaskById, createTask ,updateTask }
