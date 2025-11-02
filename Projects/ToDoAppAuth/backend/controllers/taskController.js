@@ -45,8 +45,8 @@ const updateTask = async (req, res) => {
 
     try {
         const taskId = req.params.id
-        const taskText = req.params.text
-        const taskComplated = req.params.completed
+        const taskText = req.body.text
+        const taskComplated = req.body.completed
 
         const updateTask=await TaskModel.updateTask(taskId,taskText,taskComplated)
         if(!updateTask){
