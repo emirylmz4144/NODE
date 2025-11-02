@@ -103,6 +103,19 @@ class TaskModel {
             
         
     }
+
+    static async deleteTask(id){
+        
+        const result=await client.query
+        (
+            `
+                delete from tasks 
+                where id=$1
+                returning *
+            `,[id]
+        )
+        return result.rows[0]
+    }
     static formatDate(date) {
         /* 
          padStart() metodu gelen tek karakterli tarihleri belirtilen kadar

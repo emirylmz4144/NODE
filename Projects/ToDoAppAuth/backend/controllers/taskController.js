@@ -51,6 +51,7 @@ const updateTask = async (req, res) => {
         const updateTask=await TaskModel.updateTask(taskId,taskText,taskComplated)
         if(!updateTask){
             res.status(404).json({message:"Güncellenmek istenen görev daha önce silinmiş yada bulunamadı"})
+            return
         }
 
         res.status(200).json(updateTask)
@@ -59,6 +60,22 @@ const updateTask = async (req, res) => {
         res.status(500).json({ message: "Sunucu hatası kaynaklı dolayı görev güncellenemedi " })
     }
 
+ 
 }
 
-export { getAllTasks, getTaskById, createTask ,updateTask }
+const deleteTask=async (req,res)=>{
+    try{
+        const taskId=req.params.id
+        const deleteTask= await TaskModel.deleteTask(taskId)
+        if(!deleteTask){
+            res.status(404).json("Görev daha önce silinmiş yada yanlış id verildi")
+            return
+        }
+        res.status(200).json({mesage:"Görev başarı ile silindi"})
+    }catch(error){
+        console.log(error)
+        res.status(500).json("Sunucu hatası kaynalı görev silinemedi")
+    }
+}
+
+export { getAllTasks, getTaskById, createTask ,updateTask ,deleteTask}
