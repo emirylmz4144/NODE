@@ -13,11 +13,12 @@ dotenv.config({ path: path.join(__dirname, "../.env") });//env dosyasının yeri
 const { Client } = pkg; // Pool yerine Client kullanıyoruz
 
 // Tek bağlantı oluştur
-export const client = new Client({
-  connectionString: process.env.DB_URL,
-});
+ const client = new Client({connectionString: process.env.DB_URL});
 
 // Bağlantıyı başlat
 client.connect()
   .then(() => console.log("PostgreSQL bağlantısı kuruldu"))
   .catch(err => console.error("Bağlantı hatası:", err));
+
+
+export {client}
