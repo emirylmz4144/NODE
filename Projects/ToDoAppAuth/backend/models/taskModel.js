@@ -4,7 +4,8 @@ class TaskModel {
 
     static async getAllTasks() {
         const result = await client.query
-            (`
+            (
+                `
                 select 
                     tasks.id,
                     tasks.user_id,
@@ -16,7 +17,9 @@ class TaskModel {
                 from tasks
                 inner join users on tasks.user_id=users.id
                 order by tasks.id asc
-            `)
+                `
+            )
+
 
         return result.rows.map((returnValue) => {
             return {
@@ -28,9 +31,10 @@ class TaskModel {
     }
 
     static async getTaskById(id) {
-        const result = await client.query(
+        const result = await client.query
+        (
             `
-              SELECT
+              select
                     tasks.id,
                     tasks.user_id,
                     tasks.text,
@@ -38,8 +42,9 @@ class TaskModel {
                     tasks.created_at,
                     tasks.updated_at,
                     users.username
-              FROM tasks
-              INNER JOIN users ON tasks.user_id = users.id
+              from tasks
+              inner join
+                     users ON tasks.user_id = users.id
               WHERE tasks.id = $1
             `,
             [id]
@@ -55,7 +60,25 @@ class TaskModel {
         };
     }
 
+    static async createTask(user_id,text,completed=false){
+        const result=await client.query
+        (
+            `
+              insert into
+                 tasks (user_id, text, completed)
+              values ($1, $2, $3)
+              returning *
+            `,
+            [user_id,text,completed]
+        )
 
+        const row=result.rows[0]
+        return {
+            ...row,
+            created_at:TaskModel.formatDate(row.created_at),
+            updated_at:TaskModel.formatDate(row.updated_at)
+        }
+    }
     static formatDate(date) {
         /* 
          padStart() metodu gelen tek karakterli tarihleri belirtilen kadar

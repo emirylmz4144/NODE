@@ -1,3 +1,4 @@
+import { raw } from "express"
 import TaskModel from "../models/taskModel.js"
 
 const getAllTasks = async (req, res) => {
@@ -20,11 +21,25 @@ const getTaskById = async (req, res) => {
             return
         }
         res.status(200).json(task)
-        
+
     } catch (error) {
         console.log(error)
-        res.status(500).json({message:"Sunucudan kaynaklı hatadan dolayı görev görünemiyor"})
+        res.status(500).json({message:"Sunucudan hatası kaynaklı görev görünemiyor"})
     }
 }
 
-export { getAllTasks,getTaskById }
+const createTask= async (req,res)=>{
+    try{
+        const user_id=req.body.user_id
+        const text=req.body.text
+        const completed=req.body.completed
+
+        const newTask=await TaskModel.createTask(user_id,text,completed)
+        res.status(201).json(newTask)
+    }catch(error){
+        res.status(500).json({message:"Sunucu hatası kaynaklı görev oluşturulamadı"})
+        console.log(error)
+    }
+}
+
+export { getAllTasks,getTaskById,createTask }
