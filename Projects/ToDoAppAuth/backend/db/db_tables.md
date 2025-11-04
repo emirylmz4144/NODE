@@ -1,9 +1,12 @@
 ```sql
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(80) NOT NULL UNIQUE,
+  email VARCHAR(120) NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
 );
 
 
@@ -34,6 +37,22 @@ CREATE TRIGGER trigger_update_task_timestamp
 BEFORE UPDATE ON tasks
 FOR EACH ROW
 EXECUTE FUNCTION update_task_timestamp();
+
+
+-- updated_at auto-update (opsiyonel trigger)
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_users_updated_at ON users;
+CREATE TRIGGER trg_users_updated_at
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
 
 ```
 
