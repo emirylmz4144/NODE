@@ -1,4 +1,4 @@
-import { client } from "../db/connection";
+import { client } from "../db/connection.js";
 import bcrypt from "bcrypt";
 
 //Veri tabanı işlemleri için kullanıcı modeli

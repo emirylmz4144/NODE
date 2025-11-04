@@ -1,6 +1,6 @@
 import express from "express";
 import { register, login, me } from "../controllers/authController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+import { authMiddleware } from "../middleware/middleware.js";
 
 const authRouter = express.Router();
 
@@ -12,4 +12,5 @@ authRouter.post("/login", login);
 /* Profil (korumalı) */
 authRouter.get("/me", authMiddleware, me);
 
-export { authRouter };
+export {authRouter };
+
