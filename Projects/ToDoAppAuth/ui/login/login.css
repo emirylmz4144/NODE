@@ -9,7 +9,7 @@ body {
   margin: 0;
 }
 
-/* Kart yapısı */
+
 .card {
   width: 100%;
   max-width: 420px;
@@ -18,7 +18,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Input alanları */
+
 input.form-control {
   border-radius: 6px;
   border: 1px solid #ced4da;
@@ -30,14 +30,14 @@ input.form-control:focus {
   box-shadow: none;
 }
 
-/* Giriş butonu */
+
 button.btn-primary {
   border-radius: 6px;
   padding: 10px;
   font-weight: 500;
 }
 
-/* Toast bildirimi (üst-orta konum) */
+
 #liveToast {
   text-align: center;
   border-radius: 6px;
@@ -46,17 +46,7 @@ button.btn-primary {
   opacity: 0.98;
 }
 
-/* Toast gövdesi */
+
 #liveToast .toast-body {
   font-weight: 500;
-}
-
-/* Küçük ekranlar için */
-@media (max-width: 420px) {
-  .card {
-    margin: 0 10px;
-  }
-  #liveToast {
-    width: 95%;
-  }
 }

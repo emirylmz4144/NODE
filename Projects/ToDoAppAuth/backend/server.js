@@ -1,3 +1,4 @@
+import "reflect-metadata";
 // backend/server.js
 import express from 'express'
 import cors from 'cors'
@@ -14,8 +15,6 @@ app.use(express.json())
 
 
 app.use('/api/auth', authRouter)
-
-
 app.use('/api/tasks', taskRouter)
 
 app.listen(PORT, () => {
