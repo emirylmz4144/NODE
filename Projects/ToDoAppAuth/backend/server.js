@@ -1,5 +1,3 @@
-import "reflect-metadata";
-// backend/server.js
 import express from 'express'
 import cors from 'cors'
 import '../backend/db/connection.js'
