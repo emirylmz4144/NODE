@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import '../backend/db/connection.js'
+import cookieParser from 'cookie-parser'
 import {taskRouter} from './routes/taskRoutes.js'
 import { authRouter } from './routes/authRoutes.js'
 
@@ -8,8 +9,11 @@ import { authRouter } from './routes/authRoutes.js'
 const PORT = process.env.PORT
 const app = express()
 
+
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
+
 
 
 app.use('/api/auth', authRouter)

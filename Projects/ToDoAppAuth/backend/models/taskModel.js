@@ -1,7 +1,6 @@
 import { client } from "../db/connection.js";
 
 class TaskModel {
-
     static async getAllTasks() {
         const result = await client.query
             (

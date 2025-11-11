@@ -4,15 +4,18 @@
   "description": "backend ",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --exec ts-node ./backend/app.ts",
     "start": "nodemon server.js"
   },
   "type": "module",
   "author": "Emir Yılmaz",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "^24.10.0",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
@@ -20,6 +23,8 @@
     "nodemon": "^3.1.10",
     "pg": "^8.16.3",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
